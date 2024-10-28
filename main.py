@@ -1,9 +1,6 @@
 import sys
 import uuid
 import requests
-import os
-import shutil
-
 def get_online_uuid(player: str) -> str:
     """Return the *online* UUID of a player name"""
     online_uuid = requests.get(f'https://api.mojang.com/users/profiles/minecraft/{player}').json()['id']
@@ -29,4 +26,3 @@ def main(username):
 
 if __name__ == '__main__':
     main(sys.argv[1])
-    
