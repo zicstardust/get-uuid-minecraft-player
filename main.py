@@ -5,7 +5,7 @@ def get_online_uuid(player: str) -> str:
     """Return the *online* UUID of a player name"""
     try:
         online_uuid = requests.get(f'https://api.mojang.com/users/profiles/minecraft/{player}').json()['id']
-    except KeyError:
+    except:
         return "NOT FOUND"
     else:
         online_uuid = online_uuid[:8] + '-' + online_uuid[8:]
@@ -22,11 +22,9 @@ def get_offline_uuid(player: str):
     """Return the *offline* UUID of a player name"""
     return uuid.uuid3(NULL_NAMESPACE, f'OfflinePlayer:{player}')
 
-def main(username):
-    print (f'username: {username}')
-    print (f'Online UUID: {get_online_uuid(username)}')
-    print (f'Offline UUID: {get_offline_uuid(username)}')
-
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    for username in sys.argv[1:]:
+        print (f'username: {username}')
+        print (f'Online UUID: {get_online_uuid(username)}')
+        print (f'Offline UUID: {get_offline_uuid(username)}\n')

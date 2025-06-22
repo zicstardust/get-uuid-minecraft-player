@@ -6,5 +6,5 @@ This tool get online UUIDs and offline UUIDs from player username.
 
 Run the script specifying the player username:
 ```
-./main.py username_exemple
+./main.py [<USERNAME1> <USERNAME2> <USERNAME3>...]
 ```
