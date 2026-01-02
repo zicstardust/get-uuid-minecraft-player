@@ -1,13 +1,17 @@
-import sys
-import uuid
-import requests
+import sys, uuid, json, os
+from urllib import request
 def get_online_uuid(player: str) -> str:
     """Return the *online* UUID of a player name"""
     try:
-        online_uuid = requests.get(f'https://api.mojang.com/users/profiles/minecraft/{player}').json()['id']
+        request.urlretrieve(f"https://api.mojang.com/users/profiles/minecraft/{player}", f'uuid-{player}.json')
     except:
         return "NOT FOUND"
     else:
+        file = open(f'uuid-{player}.json', 'r')
+        data = json.load(file)
+        file.close()
+        os.remove(f'uuid-{player}.json')
+        online_uuid = data['id']
         online_uuid = online_uuid[:8] + '-' + online_uuid[8:]
         online_uuid = online_uuid[:13] + '-' + online_uuid[13:]
         online_uuid = online_uuid[:18] + '-' + online_uuid[18:]
